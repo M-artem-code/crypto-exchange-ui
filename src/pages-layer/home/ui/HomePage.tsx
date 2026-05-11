@@ -1,17 +1,16 @@
 "use client";
 
 import { AppShell } from "@/widgets/app-shell";
-import { DesktopHomeLayout } from "@/app/components/DesktopHomeLayout";
-import { MobileTradingView } from "@/app/components/MobileTradingView";
+import { DesktopHomeWidget, MobileHomeWidget } from "@/widgets/home-layout";
 
 export function HomePage() {
   return (
     <AppShell>
       <div className="hidden md:block">
-        <DesktopHomeLayout />
+        <DesktopHomeWidget />
       </div>
       <div className="block md:hidden">
-        <MobileTradingView />
+        <MobileHomeWidget />
       </div>
     </AppShell>
   );
