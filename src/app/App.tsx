@@ -7,10 +7,12 @@ import { DesktopHomeLayout } from "./components/DesktopHomeLayout";
 import { MobileHeader } from "./components/MobileHeader";
 import { MobileTradingView } from "./components/MobileTradingView";
 import { MobileNavigation } from "./components/MobileNavigation";
+import { useSidebarStore } from "@/features/sidebar-toggle";
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const sidebarOpen = useSidebarStore((s) => s.open);
+  const toggleSidebar = useSidebarStore((s) => s.toggle);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768);
@@ -42,10 +44,7 @@ export default function App() {
           gridTemplateColumns: sidebarOpen ? "14rem 1fr" : "3.5rem 1fr",
         }}
       >
-        <SidebarHeader
-          open={sidebarOpen}
-          onToggle={() => setSidebarOpen((v) => !v)}
-        />
+        <SidebarHeader open={sidebarOpen} onToggle={toggleSidebar} />
         <Header />
       </div>
 

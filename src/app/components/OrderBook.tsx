@@ -1,30 +1,15 @@
 "use client";
 
 import { useState } from "react";
-
-const generateOrders = (type: "buy" | "sell", count: number) => {
-  const orders = [];
-  const basePrice = type === "buy" ? 89500 : 89550;
-  for (let i = 0; i < count; i++) {
-    const r = (Math.sin((i + 1) * 4242) + 1) / 2;
-    const price = type === "buy" ? basePrice - i * 10 : basePrice + i * 10;
-    orders.push({
-      price: price.toFixed(2),
-      amount: (r * 2).toFixed(6),
-      total: (price * r * 2).toFixed(2),
-      depth: r * 70 + 10,
-    });
-  }
-  return orders;
-};
+import { generateOrders } from "@/entities/order";
 
 type OrderBookMode = "all" | "buy" | "sell";
 
 export function OrderBook({ mode = "all" }: { mode?: OrderBookMode }) {
   const [activeTab, setActiveTab] = useState<OrderBookMode>(mode);
 
-  const buyOrders = generateOrders("buy", 15);
-  const sellOrders = generateOrders("sell", 15);
+  const sellOrders = generateOrders("sell", 12);
+  const buyOrders = generateOrders("buy", 12);
 
   const title =
     mode === "sell"

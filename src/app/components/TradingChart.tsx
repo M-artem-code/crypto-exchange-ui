@@ -1,28 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useTimeframeStore } from "@/features/timeframe-select";
+import { generateChartData } from "@/entities/market";
 
 const timeframes = ["12 Hours", "24 Hours", "7 Days", "1M", "6M", "Order book"];
 
-const generateMockData = (points: number) => {
-  const data = [];
-  let price = 89000;
-  for (let i = 0; i < points; i++) {
-    const r = (Math.sin((i + 1) * 9999) + 1) / 2;
-    price += (r - 0.48) * 500;
-    data.push({
-      time: i,
-      price: price,
-      high: price + r * 200,
-      low: price - r * 200,
-    });
-  }
-  return data;
-};
-
 export function TradingChart() {
-  const [timeframe, setTimeframe] = useState("24 Hours");
-  const chartData = generateMockData(100);
+  const timeframe = useTimeframeStore((s) => s.timeframe);
+  const setTimeframe = useTimeframeStore((s) => s.setTimeframe);
+  const chartData = generateChartData(100);
 
   const currentPrice = 89542.51;
   const priceChange = -3.47;

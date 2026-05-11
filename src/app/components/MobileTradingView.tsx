@@ -3,53 +3,17 @@
 import { useState } from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { TradingForm } from "./TradingForm";
+import { generateChartData } from "@/entities/market";
+import { generateTrades } from "@/entities/trade";
 
 const timeframes = ["12 Hours", "24 Hours", "7 Days", "1M"];
 const tabs = ["Баланс", "Ордеры", "Сделки", "Рынок"];
 
-const generateMockData = (points: number) => {
-  const data = [];
-  let price = 89000;
-  for (let i = 0; i < points; i++) {
-    const r = (Math.sin((i + 1) * 9999) + 1) / 2;
-    price += (r - 0.48) * 500;
-    data.push({
-      time: i,
-      price: price,
-      high: price + r * 200,
-      low: price - r * 200,
-    });
-  }
-  return data;
-};
-
-const generateTrades = (count: number) => {
-  const trades = [];
-  const now = new Date("2026-01-01T00:00:00.000Z");
-  for (let i = 0; i < count; i++) {
-    const time = new Date(now.getTime() - i * 30000);
-    const r = (Math.sin((i + 1) * 4242) + 1) / 2;
-    const isBuy = r > 0.5;
-    trades.push({
-      time: time.toLocaleTimeString("ru-RU", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "UTC",
-      }),
-      type: isBuy ? "BUY" : "SELL",
-      price: (89542 + (r - 0.5) * 100).toFixed(2),
-      amount: (r * 0.5).toFixed(8),
-      total: ((89542 + (r - 0.5) * 100) * r * 0.5).toFixed(8),
-    });
-  }
-  return trades;
-};
-
 export function MobileTradingView() {
   const [timeframe, setTimeframe] = useState("24 Hours");
   const [activeTab, setActiveTab] = useState("Сделки");
-  const chartData = generateMockData(50);
-  const trades = generateTrades(15);
+  const chartData = generateChartData(50);
+  const trades = generateTrades(15, 30000);
 
   const currentPrice = 89542.51;
   const priceChange = -3.47;
