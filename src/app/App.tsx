@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { Sidebar, SidebarHeader } from "./components/Sidebar";
@@ -7,12 +9,14 @@ import { MobileTradingView } from "./components/MobileTradingView";
 import { MobileNavigation } from "./components/MobileNavigation";
 
 export default function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      update();
     };
 
     window.addEventListener("resize", handleResize);

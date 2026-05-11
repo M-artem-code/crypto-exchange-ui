@@ -1,24 +1,22 @@
 const generateTrades = (count: number) => {
   const trades = [];
-  const now = new Date();
+  const now = new Date("2026-01-01T00:00:00.000Z");
   for (let i = 0; i < count; i++) {
     const time = new Date(now.getTime() - i * 15000);
-    const isBuy = Math.random() > 0.5;
+    const r = (Math.sin((i + 1) * 4242) + 1) / 2;
+    const isBuy = r > 0.5;
     trades.push({
       time: time.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
         hour12: false,
+        timeZone: "UTC",
       }),
       type: isBuy ? "BUY" : "SELL",
-      price: (89542 + (Math.random() - 0.5) * 100).toFixed(2),
-      amount: (Math.random() * 0.5).toFixed(6),
-      total: (
-        (89542 + (Math.random() - 0.5) * 100) *
-        Math.random() *
-        0.5
-      ).toFixed(2),
+      price: (89542 + (r - 0.5) * 100).toFixed(2),
+      amount: (r * 0.5).toFixed(6),
+      total: ((89542 + (r - 0.5) * 100) * r * 0.5).toFixed(2),
     });
   }
   return trades;

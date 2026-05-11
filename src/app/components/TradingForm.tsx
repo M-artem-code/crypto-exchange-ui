@@ -21,7 +21,7 @@ export function TradingForm() {
           <div className="relative mt-1">
             <input
               type="text"
-              value="0.00844541245"
+              defaultValue="0.00844541245"
               className="w-full bg-transparent text-xl font-bold text-foreground tabular-nums pr-24 focus:outline-none"
             />
             <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-[#2a2d42] rounded-full px-3 py-1.5">
@@ -42,7 +42,7 @@ export function TradingForm() {
           <div className="relative mt-1">
             <input
               type="text"
-              value="14.85"
+              defaultValue="14.85"
               className="w-full bg-transparent text-xl font-bold text-foreground tabular-nums pr-28 focus:outline-none"
             />
             <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-[#2a2d42] rounded-full px-3 py-1.5">

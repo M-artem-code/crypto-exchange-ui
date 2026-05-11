@@ -10,7 +10,13 @@ type TradingChartCanvasProps = {
 export function TradingChartCanvas({ chartData }: TradingChartCanvasProps) {
   return (
     <div className="relative h-full min-h-0">
-      <svg width="100%" height="100%" className="overflow-visible">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 320"
+        preserveAspectRatio="none"
+        className="overflow-visible"
+      >
         <defs>
           <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#4caf50" stopOpacity="0.3" />
@@ -21,10 +27,10 @@ export function TradingChartCanvas({ chartData }: TradingChartCanvasProps) {
         {[0, 1, 2, 3, 4].map((i) => (
           <line
             key={i}
-            x1="0"
-            y1={`${i * 25}%`}
-            x2="100%"
-            y2={`${i * 25}%`}
+            x1={0}
+            y1={i * 80}
+            x2={100}
+            y2={i * 80}
             stroke="rgba(255,255,255,0.05)"
             strokeWidth="1"
           />
@@ -35,9 +41,9 @@ export function TradingChartCanvas({ chartData }: TradingChartCanvasProps) {
             .map((point, i) => {
               const x = (i / chartData.length) * 100;
               const y = 320 - ((point.price - 88000) / 4000) * 320;
-              return `L ${x}%,${y}`;
+              return `L ${x}, ${y}`;
             })
-            .join(" ")} L 100%,320 L 0,320 Z`}
+            .join(" ")} L 100, 320 L 0, 320 Z`}
           fill="url(#chartGradient)"
         />
 
@@ -46,7 +52,7 @@ export function TradingChartCanvas({ chartData }: TradingChartCanvasProps) {
             .map((point, i) => {
               const x = (i / chartData.length) * 100;
               const y = 320 - ((point.price - 88000) / 4000) * 320;
-              return `L ${x}%,${y}`;
+              return `L ${x},${y}`;
             })
             .join(" ")}`}
           fill="none"

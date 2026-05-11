@@ -1,14 +1,18 @@
+"use client";
+
 import { useState } from "react";
 
 const generateOrders = (type: "buy" | "sell", count: number) => {
   const orders = [];
   const basePrice = type === "buy" ? 89500 : 89550;
   for (let i = 0; i < count; i++) {
+    const r = (Math.sin((i + 1) * 4242) + 1) / 2;
     const price = type === "buy" ? basePrice - i * 10 : basePrice + i * 10;
     orders.push({
       price: price.toFixed(2),
-      amount: (Math.random() * 2).toFixed(6),
-      total: (price * Math.random() * 2).toFixed(2),
+      amount: (r * 2).toFixed(6),
+      total: (price * r * 2).toFixed(2),
+      depth: r * 70 + 10,
     });
   }
   return orders;
@@ -168,7 +172,7 @@ export function OrderBook({ mode = "all" }: { mode?: OrderBookMode }) {
               >
                 <div
                   className="absolute inset-y-0 right-0 bg-danger/10"
-                  style={{ width: `${Math.random() * 70 + 10}%` }}
+                  style={{ width: `${order.depth}%` }}
                 />
                 <div className="text-danger relative z-10">{order.price}</div>
                 <div className="text-right relative z-10">{order.amount}</div>
@@ -199,7 +203,7 @@ export function OrderBook({ mode = "all" }: { mode?: OrderBookMode }) {
               >
                 <div
                   className="absolute inset-y-0 right-0 bg-success/10"
-                  style={{ width: `${Math.random() * 70 + 10}%` }}
+                  style={{ width: `${order.depth}%` }}
                 />
                 <div className="text-success relative z-10">{order.price}</div>
                 <div className="text-right relative z-10">{order.amount}</div>

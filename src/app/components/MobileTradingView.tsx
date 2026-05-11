@@ -1,20 +1,23 @@
-import { useState } from 'react';
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { TradingForm } from './TradingForm';
+"use client";
 
-const timeframes = ['12 Hours', '24 Hours', '7 Days', '1M'];
-const tabs = ['Баланс', 'Ордеры', 'Сделки', 'Рынок'];
+import { useState } from "react";
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { TradingForm } from "./TradingForm";
+
+const timeframes = ["12 Hours", "24 Hours", "7 Days", "1M"];
+const tabs = ["Баланс", "Ордеры", "Сделки", "Рынок"];
 
 const generateMockData = (points: number) => {
   const data = [];
   let price = 89000;
   for (let i = 0; i < points; i++) {
-    price += (Math.random() - 0.48) * 500;
+    const r = (Math.sin((i + 1) * 9999) + 1) / 2;
+    price += (r - 0.48) * 500;
     data.push({
       time: i,
       price: price,
-      high: price + Math.random() * 200,
-      low: price - Math.random() * 200,
+      high: price + r * 200,
+      low: price - r * 200,
     });
   }
   return data;
@@ -22,24 +25,29 @@ const generateMockData = (points: number) => {
 
 const generateTrades = (count: number) => {
   const trades = [];
-  const now = new Date();
+  const now = new Date("2026-01-01T00:00:00.000Z");
   for (let i = 0; i < count; i++) {
     const time = new Date(now.getTime() - i * 30000);
-    const isBuy = Math.random() > 0.5;
+    const r = (Math.sin((i + 1) * 4242) + 1) / 2;
+    const isBuy = r > 0.5;
     trades.push({
-      time: time.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
-      type: isBuy ? 'BUY' : 'SELL',
-      price: (89542 + (Math.random() - 0.5) * 100).toFixed(2),
-      amount: (Math.random() * 0.5).toFixed(8),
-      total: ((89542 + (Math.random() - 0.5) * 100) * Math.random() * 0.5).toFixed(8),
+      time: time.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "UTC",
+      }),
+      type: isBuy ? "BUY" : "SELL",
+      price: (89542 + (r - 0.5) * 100).toFixed(2),
+      amount: (r * 0.5).toFixed(8),
+      total: ((89542 + (r - 0.5) * 100) * r * 0.5).toFixed(8),
     });
   }
   return trades;
 };
 
 export function MobileTradingView() {
-  const [timeframe, setTimeframe] = useState('24 Hours');
-  const [activeTab, setActiveTab] = useState('Сделки');
+  const [timeframe, setTimeframe] = useState("24 Hours");
+  const [activeTab, setActiveTab] = useState("Сделки");
   const chartData = generateMockData(50);
   const trades = generateTrades(15);
 
@@ -61,22 +69,37 @@ export function MobileTradingView() {
           </div>
 
           <div className="text-right">
-            <div className="text-xs text-muted-foreground mb-0.5">Макс. за 24ч</div>
+            <div className="text-xs text-muted-foreground mb-0.5">
+              Макс. за 24ч
+            </div>
             <div className="text-sm font-medium">91,790.14</div>
           </div>
 
           <div className="text-right">
-            <div className="text-xs text-muted-foreground mb-0.5">Объем за 24ч (BTC)</div>
+            <div className="text-xs text-muted-foreground mb-0.5">
+              Объем за 24ч (BTC)
+            </div>
             <div className="text-sm font-medium">8,186,421</div>
           </div>
         </div>
 
         <div className="mb-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold">{currentPrice.toLocaleString('en-US')}</span>
-            <span className={`flex items-center gap-1 text-sm font-medium ${priceChange >= 0 ? 'text-success' : 'text-danger'}`}>
-              <span>{priceChange >= 0 ? '+' : ''}{priceChange}%</span>
-              {priceChange >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+            <span className="text-2xl font-bold">
+              {currentPrice.toLocaleString("en-US")}
+            </span>
+            <span
+              className={`flex items-center gap-1 text-sm font-medium ${priceChange >= 0 ? "text-success" : "text-danger"}`}
+            >
+              <span>
+                {priceChange >= 0 ? "+" : ""}
+                {priceChange}%
+              </span>
+              {priceChange >= 0 ? (
+                <TrendingUp className="w-3 h-3" />
+              ) : (
+                <TrendingDown className="w-3 h-3" />
+              )}
             </span>
           </div>
           <div className="grid grid-cols-2 gap-2 mt-2 text-xs">
@@ -85,7 +108,9 @@ export function MobileTradingView() {
               <span className="font-medium">88,450.14</span>
             </div>
             <div>
-              <span className="text-muted-foreground">Объем за 24ч (USDT): </span>
+              <span className="text-muted-foreground">
+                Объем за 24ч (USDT):{" "}
+              </span>
               <span className="font-medium">2,427,587,475.22</span>
             </div>
           </div>
@@ -98,8 +123,8 @@ export function MobileTradingView() {
               onClick={() => setTimeframe(tf)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                 timeframe === tf
-                  ? 'bg-[#4a4d6a] text-white'
-                  : 'bg-[#22274d] text-muted-foreground'
+                  ? "bg-[#4a4d6a] text-white"
+                  : "bg-[#22274d] text-muted-foreground"
               }`}
             >
               {tf}
@@ -110,7 +135,13 @@ export function MobileTradingView() {
         <div className="relative h-48 bg-[#1f2233] rounded-lg p-2">
           <svg width="100%" height="100%" className="overflow-visible">
             <defs>
-              <linearGradient id="mobileChartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <linearGradient
+                id="mobileChartGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="#4caf50" stopOpacity="0.2" />
                 <stop offset="100%" stopColor="#4caf50" stopOpacity="0" />
               </linearGradient>
@@ -123,7 +154,7 @@ export function MobileTradingView() {
                   const y = 192 - ((point.price - 88000) / 4000) * 192;
                   return `L ${x}%,${y}`;
                 })
-                .join(' ')} L 100%,192 L 0,192 Z`}
+                .join(" ")} L 100%,192 L 0,192 Z`}
               fill="url(#mobileChartGradient)"
             />
 
@@ -134,41 +165,45 @@ export function MobileTradingView() {
                   const y = 192 - ((point.price - 88000) / 4000) * 192;
                   return `L ${x}%,${y}`;
                 })
-                .join(' ')}`}
+                .join(" ")}`}
               fill="none"
               stroke="#4caf50"
               strokeWidth="2"
             />
 
-            {chartData.filter((_, i) => i % 3 === 0).map((point, i) => {
-              const x = (((i * 3) / chartData.length) * 100) + '%';
-              const yHigh = 192 - ((point.high - 88000) / 4000) * 192;
-              const yLow = 192 - ((point.low - 88000) / 4000) * 192;
-              const yPrice = 192 - ((point.price - 88000) / 4000) * 192;
-              const isGreen = point.price > (chartData[Math.max(0, i * 3 - 1)]?.price || point.price);
+            {chartData
+              .filter((_, i) => i % 3 === 0)
+              .map((point, i) => {
+                const x = ((i * 3) / chartData.length) * 100 + "%";
+                const yHigh = 192 - ((point.high - 88000) / 4000) * 192;
+                const yLow = 192 - ((point.low - 88000) / 4000) * 192;
+                const yPrice = 192 - ((point.price - 88000) / 4000) * 192;
+                const isGreen =
+                  point.price >
+                  (chartData[Math.max(0, i * 3 - 1)]?.price || point.price);
 
-              return (
-                <g key={i}>
-                  <line
-                    x1={x}
-                    y1={yHigh}
-                    x2={x}
-                    y2={yLow}
-                    stroke={isGreen ? '#4caf50' : '#ff4757'}
-                    strokeWidth="1"
-                    opacity="0.5"
-                  />
-                  <rect
-                    x={`calc(${x} - 1.5px)`}
-                    y={Math.min(yPrice, yPrice - 8)}
-                    width="3"
-                    height={Math.abs(8)}
-                    fill={isGreen ? '#4caf50' : '#ff4757'}
-                    opacity="0.7"
-                  />
-                </g>
-              );
-            })}
+                return (
+                  <g key={i}>
+                    <line
+                      x1={x}
+                      y1={yHigh}
+                      x2={x}
+                      y2={yLow}
+                      stroke={isGreen ? "#4caf50" : "#ff4757"}
+                      strokeWidth="1"
+                      opacity="0.5"
+                    />
+                    <rect
+                      x={`calc(${x} - 1.5px)`}
+                      y={Math.min(yPrice, yPrice - 8)}
+                      width="3"
+                      height={Math.abs(8)}
+                      fill={isGreen ? "#4caf50" : "#ff4757"}
+                      opacity="0.7"
+                    />
+                  </g>
+                );
+              })}
           </svg>
 
           <div className="absolute bottom-1 left-0 right-0 flex justify-between text-[10px] text-muted-foreground px-2">
@@ -189,8 +224,8 @@ export function MobileTradingView() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 activeTab === tab
-                  ? 'bg-card text-white'
-                  : 'text-muted-foreground'
+                  ? "bg-card text-white"
+                  : "text-muted-foreground"
               }`}
             >
               {tab}
@@ -198,7 +233,7 @@ export function MobileTradingView() {
           ))}
         </div>
 
-        {activeTab === 'Сделки' && (
+        {activeTab === "Сделки" && (
           <div className="bg-card rounded-xl border border-white/10 mb-4">
             <div className="p-3 border-b border-white/10">
               <div className="flex items-center justify-between text-[10px] text-muted-foreground">
@@ -214,12 +249,18 @@ export function MobileTradingView() {
                   key={i}
                   className="flex items-center justify-between px-3 py-2 text-xs border-b border-white/5 last:border-b-0"
                 >
-                  <span className="text-muted-foreground w-14">{trade.time}</span>
-                  <span className={`w-12 font-medium ${trade.type === 'BUY' ? 'text-success' : 'text-danger'}`}>
+                  <span className="text-muted-foreground w-14">
+                    {trade.time}
+                  </span>
+                  <span
+                    className={`w-12 font-medium ${trade.type === "BUY" ? "text-success" : "text-danger"}`}
+                  >
                     {trade.type}
                   </span>
                   <span className="w-20 text-right">{trade.price}</span>
-                  <span className="w-24 text-right text-muted-foreground">{trade.amount}</span>
+                  <span className="w-24 text-right text-muted-foreground">
+                    {trade.amount}
+                  </span>
                 </div>
               ))}
             </div>

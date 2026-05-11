@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 const timeframes = ["12 Hours", "24 Hours", "7 Days", "1M", "6M", "Order book"];
@@ -6,12 +8,13 @@ const generateMockData = (points: number) => {
   const data = [];
   let price = 89000;
   for (let i = 0; i < points; i++) {
-    price += (Math.random() - 0.48) * 500;
+    const r = (Math.sin((i + 1) * 9999) + 1) / 2;
+    price += (r - 0.48) * 500;
     data.push({
       time: i,
       price: price,
-      high: price + Math.random() * 200,
-      low: price - Math.random() * 200,
+      high: price + r * 200,
+      low: price - r * 200,
     });
   }
   return data;
