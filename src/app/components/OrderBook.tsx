@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const generateOrders = (type: 'buy' | 'sell', count: number) => {
+const generateOrders = (type: "buy" | "sell", count: number) => {
   const orders = [];
-  const basePrice = type === 'buy' ? 89500 : 89550;
+  const basePrice = type === "buy" ? 89500 : 89550;
   for (let i = 0; i < count; i++) {
-    const price = type === 'buy' ? basePrice - i * 10 : basePrice + i * 10;
+    const price = type === "buy" ? basePrice - i * 10 : basePrice + i * 10;
     orders.push({
       price: price.toFixed(2),
       amount: (Math.random() * 2).toFixed(6),
@@ -14,59 +14,153 @@ const generateOrders = (type: 'buy' | 'sell', count: number) => {
   return orders;
 };
 
-export function OrderBook() {
-  const [activeTab, setActiveTab] = useState<'all' | 'buy' | 'sell'>('all');
+type OrderBookMode = "all" | "buy" | "sell";
 
-  const buyOrders = generateOrders('buy', 15);
-  const sellOrders = generateOrders('sell', 15);
+export function OrderBook({ mode = "all" }: { mode?: OrderBookMode }) {
+  const [activeTab, setActiveTab] = useState<OrderBookMode>(mode);
+
+  const buyOrders = generateOrders("buy", 15);
+  const sellOrders = generateOrders("sell", 15);
+
+  const title =
+    mode === "sell"
+      ? "Ордера на продажу"
+      : mode === "buy"
+        ? "Ордера на покупку"
+        : "Стакан ордеров";
+
+  const resolvedTab: OrderBookMode = mode === "all" ? activeTab : mode;
+
+  const headerIconColor =
+    mode === "sell"
+      ? "text-danger"
+      : mode === "buy"
+        ? "text-success"
+        : "text-muted-foreground";
+  const headerIcon =
+    mode === "sell" ? (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className={headerIconColor}
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    ) : (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className={headerIconColor}
+      >
+        <path d="M12 5v14" />
+        <path d="m19 12-7 7-7-7" />
+      </svg>
+    );
 
   return (
-    <div className="bg-card rounded-xl border border-white/10 flex flex-col h-full">
-      <div className="p-4 border-b border-white/10">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold">Стакан ордеров</h3>
+    <div className="bg-card rounded-xl flex flex-col h-full overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#22274d]">
+        <div className="flex items-center gap-2">
+          {headerIcon}
+          <h3 className="font-semibold text-muted-foreground">{title}</h3>
+        </div>
+        {mode === "all" && (
           <div className="flex gap-1">
             <button
-              onClick={() => setActiveTab('all')}
-              className={`p-2 rounded ${activeTab === 'all' ? 'bg-[#3a3d52]' : 'hover:bg-[#2a2d42]'}`}
+              onClick={() => setActiveTab("all")}
+              className={`p-2 rounded ${activeTab === "all" ? "bg-[#3a3d52]" : "hover:bg-[#22274d]"}`}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                <rect x="2" y="2" width="5" height="5" className="text-danger" />
-                <rect x="9" y="2" width="5" height="5" className="text-success" />
-                <rect x="2" y="9" width="5" height="5" className="text-danger" />
-                <rect x="9" y="9" width="5" height="5" className="text-success" />
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+              >
+                <rect
+                  x="2"
+                  y="2"
+                  width="5"
+                  height="5"
+                  className="text-danger"
+                />
+                <rect
+                  x="9"
+                  y="2"
+                  width="5"
+                  height="5"
+                  className="text-success"
+                />
+                <rect
+                  x="2"
+                  y="9"
+                  width="5"
+                  height="5"
+                  className="text-danger"
+                />
+                <rect
+                  x="9"
+                  y="9"
+                  width="5"
+                  height="5"
+                  className="text-success"
+                />
               </svg>
             </button>
             <button
-              onClick={() => setActiveTab('buy')}
-              className={`p-2 rounded ${activeTab === 'buy' ? 'bg-[#3a3d52]' : 'hover:bg-[#2a2d42]'}`}
+              onClick={() => setActiveTab("buy")}
+              className={`p-2 rounded ${activeTab === "buy" ? "bg-[#3a3d52]" : "hover:bg-[#22274d]"}`}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-success">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="text-success"
+              >
                 <rect x="2" y="2" width="12" height="12" />
               </svg>
             </button>
             <button
-              onClick={() => setActiveTab('sell')}
-              className={`p-2 rounded ${activeTab === 'sell' ? 'bg-[#3a3d52]' : 'hover:bg-[#2a2d42]'}`}
+              onClick={() => setActiveTab("sell")}
+              className={`p-2 rounded ${activeTab === "sell" ? "bg-[#3a3d52]" : "hover:bg-[#22274d]"}`}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" className="text-danger">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="text-danger"
+              >
                 <rect x="2" y="2" width="12" height="12" />
               </svg>
             </button>
           </div>
-        </div>
+        )}
+      </div>
 
+      <div className="px-4 py-3">
         <div className="grid grid-cols-3 gap-2 text-xs text-muted-foreground">
-          <div>Цена (USDT)</div>
-          <div className="text-right">Количество (BTC)</div>
-          <div className="text-right">Сумма</div>
+          <div>Цена</div>
+          <div className="text-right">BTC</div>
+          <div className="text-right">USDT</div>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        {(activeTab === 'all' || activeTab === 'sell') && (
-          <div className="px-4 py-2">
-            <div className="text-xs text-muted-foreground mb-2">Продажа</div>
+        {(resolvedTab === "all" || resolvedTab === "sell") && (
+          <div className="px-4 py-1">
+            {mode === "all" && (
+              <div className="text-xs text-muted-foreground mb-2">Продажа</div>
+            )}
             {sellOrders.map((order, i) => (
               <div
                 key={i}
@@ -84,16 +178,20 @@ export function OrderBook() {
           </div>
         )}
 
-        {activeTab === 'all' && (
-          <div className="px-4 py-3 bg-[#2a2d42]/50">
+        {resolvedTab === "all" && (
+          <div className="px-4 py-3 bg-[#22274d]/50">
             <div className="text-2xl font-bold text-center">89,542.51</div>
-            <div className="text-xs text-center text-muted-foreground">≈ $89,542.51</div>
+            <div className="text-xs text-center text-muted-foreground">
+              ≈ $89,542.51
+            </div>
           </div>
         )}
 
-        {(activeTab === 'all' || activeTab === 'buy') && (
-          <div className="px-4 py-2">
-            <div className="text-xs text-muted-foreground mb-2">Покупка</div>
+        {(resolvedTab === "all" || resolvedTab === "buy") && (
+          <div className="px-4 py-1">
+            {mode === "all" && (
+              <div className="text-xs text-muted-foreground mb-2">Покупка</div>
+            )}
             {buyOrders.map((order, i) => (
               <div
                 key={i}

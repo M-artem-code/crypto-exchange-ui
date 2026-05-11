@@ -99,7 +99,7 @@ export function MobileTradingView() {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                 timeframe === tf
                   ? 'bg-[#4a4d6a] text-white'
-                  : 'bg-[#2a2d42] text-muted-foreground'
+                  : 'bg-[#22274d] text-muted-foreground'
               }`}
             >
               {tf}

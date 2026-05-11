@@ -2,7 +2,7 @@ import { Bell, Plus, ChevronDown, Menu } from 'lucide-react';
 
 export function MobileHeader() {
   return (
-    <header className="bg-[#1f2233] border-b border-white/10 px-4 py-3">
+    <header className="bg-[#1f2233] px-4 py-3">
       <div className="flex items-center justify-between mb-3">
         <button className="w-8 h-8 flex items-center justify-center">
           <div className="w-6 h-6 rounded-full bg-success flex items-center justify-center">
@@ -15,7 +15,7 @@ export function MobileHeader() {
         </button>
 
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 px-3 py-1.5 bg-[#2a2d42] rounded-lg">
+          <button className="flex items-center gap-2 px-3 py-1.5 bg-[#22274d] rounded-lg">
             <span className="text-xs text-muted-foreground">Ƀ</span>
             <span className="text-sm font-medium">1,148,258.985</span>
             <ChevronDown className="w-3 h-3 text-muted-foreground" />
@@ -25,7 +25,7 @@ export function MobileHeader() {
             <Plus className="w-4 h-4" />
           </button>
 
-          <button className="w-8 h-8 rounded-lg bg-[#2a2d42] flex items-center justify-center">
+          <button className="w-8 h-8 rounded-lg bg-[#22274d] flex items-center justify-center">
             <Bell className="w-4 h-4" />
           </button>
 

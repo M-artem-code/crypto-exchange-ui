@@ -10,7 +10,7 @@ const navItems = [
 
 export function MobileNavigation() {
   return (
-    <nav className="bg-[#1f2233] border-t border-white/10 px-2 py-2">
+    <nav className="bg-[#1f2233] px-2 py-2">
       <div className="flex items-center justify-around">
         {navItems.map((item) => (
           <button

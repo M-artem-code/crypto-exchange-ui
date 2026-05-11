@@ -1,38 +1,26 @@
-import { useState } from 'react';
-
 export function TradingForm() {
-  const [activeTab, setActiveTab] = useState<'buy' | 'sell'>('sell');
-
   return (
-    <div className="bg-card rounded-xl border border-white/10 p-4">
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={() => setActiveTab('buy')}
-          className={`flex-1 py-2.5 rounded-lg font-medium transition-colors ${
-            activeTab === 'buy'
-              ? 'bg-success text-white'
-              : 'bg-[#2a2d42] text-muted-foreground'
-          }`}
-        >
+    <div className="bg-card rounded-xl p-4 h-full flex flex-col">
+      <div className="flex bg-[#2a2d42] rounded-lg p-1 mb-4">
+        <button className="flex-1 py-2 rounded-md bg-success text-white font-medium">
           Купить
         </button>
-        <button
-          onClick={() => setActiveTab('sell')}
-          className={`flex-1 py-2.5 rounded-lg font-medium transition-colors ${
-            activeTab === 'sell'
-              ? 'bg-danger text-white'
-              : 'bg-[#2a2d42] text-muted-foreground'
-          }`}
-        >
+        <button className="flex-1 py-2 rounded-md text-muted-foreground font-medium hover:text-foreground">
           Продать
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 flex-1">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
+          <span>Доступно:</span>
+          <span className="tabular-nums">45 854.82 USDT</span>
+        </div>
+
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-sm text-muted-foreground">Вы продаёте:</label>
-            <span className="text-xs text-muted-foreground">1 BTC ≈ USD $95,875.01</span>
+            <label className="text-sm text-muted-foreground">
+              Вы покупаете:
+            </label>
           </div>
           <div className="relative">
             <input
@@ -49,9 +37,15 @@ export function TradingForm() {
           </div>
         </div>
 
+        <div className="text-xs text-muted-foreground">
+          1 BTC ≈ USD $95,875.01
+        </div>
+
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-sm text-muted-foreground">Вы получаете:</label>
+            <label className="text-sm text-muted-foreground">
+              Вы потратите:
+            </label>
           </div>
           <div className="relative">
             <input
@@ -68,14 +62,8 @@ export function TradingForm() {
           </div>
         </div>
 
-        <button
-          className={`w-full py-4 rounded-lg font-medium text-white transition-colors ${
-            activeTab === 'sell'
-              ? 'bg-danger hover:bg-danger/90'
-              : 'bg-success hover:bg-success/90'
-          }`}
-        >
-          {activeTab === 'sell' ? 'Продать' : 'Купить'}
+        <button className="w-full py-4 rounded-lg font-medium text-white transition-colors bg-success hover:bg-success/90">
+          Купить BTC
         </button>
       </div>
     </div>
