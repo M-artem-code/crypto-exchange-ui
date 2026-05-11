@@ -1,7 +1,7 @@
 "use client";
 
-import App from "./App";
+import { HomePage } from "@/pages-layer/home";
 
 export default function Page() {
-  return <App />;
+  return <HomePage />;
 }
