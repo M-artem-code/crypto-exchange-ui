@@ -53,40 +53,6 @@ export function TradingChartCanvas({ chartData }: TradingChartCanvasProps) {
           stroke="#4caf50"
           strokeWidth="2"
         />
-
-        {chartData
-          .filter((_, i) => i % 5 === 0)
-          .map((point, i) => {
-            const x = ((i * 5) / chartData.length) * 100 + "%";
-            const yHigh = 320 - ((point.high - 88000) / 4000) * 320;
-            const yLow = 320 - ((point.low - 88000) / 4000) * 320;
-            const yPrice = 320 - ((point.price - 88000) / 4000) * 320;
-            const isGreen =
-              point.price >
-              (chartData[Math.max(0, i * 5 - 1)]?.price || point.price);
-
-            return (
-              <g key={i}>
-                <line
-                  x1={x}
-                  y1={yHigh}
-                  x2={x}
-                  y2={yLow}
-                  stroke={isGreen ? "#4caf50" : "#ff4757"}
-                  strokeWidth="1"
-                  opacity="0.6"
-                />
-                <rect
-                  x={`calc(${x} - 2px)`}
-                  y={Math.min(yPrice, yPrice - 10)}
-                  width="4"
-                  height={Math.abs(10)}
-                  fill={isGreen ? "#4caf50" : "#ff4757"}
-                  opacity="0.8"
-                />
-              </g>
-            );
-          })}
       </svg>
 
       <div className="absolute bottom-0 left-0 right-0 flex justify-between text-[10px] text-muted-foreground px-2">

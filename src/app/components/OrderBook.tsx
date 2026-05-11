@@ -71,7 +71,7 @@ export function OrderBook({ mode = "all" }: { mode?: OrderBookMode }) {
       <div className="flex items-center justify-between px-4 py-3 bg-[#22274d]">
         <div className="flex items-center gap-2">
           {headerIcon}
-          <h3 className="font-semibold text-muted-foreground">{title}</h3>
+          <h3 className="text-2xl font-bold text-muted-foreground">{title}</h3>
         </div>
         {mode === "all" && (
           <div className="flex gap-1">

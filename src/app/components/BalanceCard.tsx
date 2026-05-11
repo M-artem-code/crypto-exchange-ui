@@ -11,8 +11,8 @@ export function BalanceCard() {
     <div className="bg-card rounded-xl h-full overflow-hidden">
       <div className="flex items-center gap-2 px-4 py-3 bg-[#22274d]">
         <svg
-          width="18"
-          height="18"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -22,7 +22,7 @@ export function BalanceCard() {
           <path d="M5 21V7l8-4v18" />
           <path d="M19 21V11l-6-4" />
         </svg>
-        <h3 className="text-base font-semibold text-muted-foreground">
+        <h3 className="text-2xl font-bold text-muted-foreground">
           Баланс
         </h3>
       </div>

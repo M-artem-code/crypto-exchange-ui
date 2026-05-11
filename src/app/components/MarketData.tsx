@@ -46,7 +46,7 @@ export function MarketData() {
             <input
               type="text"
               placeholder="Поиск"
-              className="w-full pl-9 pr-3 py-2 bg-[#22274d] rounded-lg text-xs focus:outline-none focus:ring-2 ring-success/50"
+              className="w-full pl-9 pr-3 py-2 bg-[#22274d] border rounded-lg text-xs focus:outline-none focus:ring-2 ring-success/50"
             />
           </div>
         </div>

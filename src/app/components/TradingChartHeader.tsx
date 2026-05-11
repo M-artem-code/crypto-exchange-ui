@@ -23,9 +23,9 @@ export function TradingChartHeader({
 
           <div className="leading-tight min-w-0">
             <div className="text-xl font-bold leading-5 truncate">BTC/USDT</div>
-            <div className="text-sm text-muted-foreground truncate">
+            <button className="text-sm text-muted-foreground truncate underline">
               Bitcoin info
-            </div>
+            </button>
           </div>
         </div>
 

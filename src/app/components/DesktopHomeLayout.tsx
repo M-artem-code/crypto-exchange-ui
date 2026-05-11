@@ -32,13 +32,13 @@ export function DesktopHomeLayout() {
   const priceChange = -3.47;
 
   return (
-    <main className="flex-1 p-4 overflow-y-auto">
-      <div className="grid grid-cols-1 xl:grid-cols-[260px_1fr] gap-4 mb-4">
-        <div className="h-[400px]">
+    <main className="flex-1 p-4">
+      <div className="grid grid-cols-1 xl:grid-cols-[330px_3.5fr] gap-4 mb-4">
+        <div className="h-[380px]">
           <TradingForm />
         </div>
 
-        <div className="h-[400px]">
+        <div className="h-[380px]">
           <div className="h-full grid grid-rows-[auto_1fr] gap-3">
             <div className="bg-card rounded-xl p-4">
               <TradingChartHeader
@@ -57,7 +57,7 @@ export function DesktopHomeLayout() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[0.5fr_1fr_1fr] gap-4 mb-4">
+      <div className="grid grid-cols-1 xl:grid-cols-[330px_1fr_1fr] gap-4 mb-4">
         <div className="h-[330px]">
           <BalanceCard />
         </div>
@@ -69,7 +69,7 @@ export function DesktopHomeLayout() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_650px] gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_750px] gap-4">
         <div className="h-[300px]">
           <MarketData />
         </div>
